@@ -21,6 +21,9 @@ public class PetServiceImpl implements PetService {
     private PetDao petDao;
 
     @Autowired
+    private CustomerService customerService;
+
+    @Autowired
     private CustomerDao customerDao;
 
     static final Logger logger = LoggerFactory.getLogger(PetServiceImpl.class);
@@ -28,8 +31,11 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public Pet save(Pet pet, Long ownerId) {
-        pet.setCustomer(customerDao.findById(ownerId).orElseThrow(IllegalArgumentException::new));
-        return petDao.save(pet);
+        Customer customer = customerDao.findById(ownerId).orElseThrow(IllegalArgumentException::new);
+        pet.setCustomer(customer);
+        pet = petDao.save(pet);
+        customerService.addPetToCustomer(pet, customer);
+        return pet;
     }
 
     @Override

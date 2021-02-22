@@ -41,4 +41,13 @@ public class CustomerServiceImpl implements CustomerService {
     public Customer getOwnerByPet(Long petId) {
         return customerDao.findById(petDao.findById(petId).orElseThrow(NoSuchElementException::new).getCustomer().getId()).orElseThrow(NoSuchElementException::new);
     }
+
+    public void addPetToCustomer(Pet pet, Customer customer) {
+        List<Pet> pets = customer.getPets();
+        if (pets == null)
+            pets = new ArrayList<>();
+        pets.add(pet);
+        customer.setPets(pets);
+        customerDao.save(customer);
+    }
 }

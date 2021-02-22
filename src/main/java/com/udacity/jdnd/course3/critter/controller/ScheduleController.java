@@ -35,7 +35,7 @@ public class ScheduleController {
         this.modelMapper = modelMapper;
     }
 
-    @PostMapping
+    @PutMapping
     public ScheduleDTO createSchedule(@RequestBody ScheduleDTO scheduleDTO) {
         Schedule schedule = this.modelMapper.map(scheduleDTO, Schedule.class);
         schedule.setPets(scheduleDTO.getPetIds().stream().map(petId -> this.petService.findById(petId)).collect(Collectors.toList()));

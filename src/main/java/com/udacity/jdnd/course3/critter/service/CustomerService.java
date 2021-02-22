@@ -12,4 +12,6 @@ public interface CustomerService {
     List<Customer> findAll();
 
     Customer getOwnerByPet(Long petId);
+
+    void addPetToCustomer(Pet pet, Customer customer);
 }

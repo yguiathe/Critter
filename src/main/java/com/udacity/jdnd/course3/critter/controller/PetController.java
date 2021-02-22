@@ -30,9 +30,8 @@ public class PetController {
         this.modelMapper = modelMapper;
     }
 
-    @PostMapping
-    public PetDTO savePet(@RequestBody PetDTO petDTO) {
-        Long ownerId = petDTO.getOwnerId();
+    @PostMapping("/{ownerId}")
+    public PetDTO savePet(@RequestBody PetDTO petDTO, @PathVariable long ownerId) {
         Pet pet = this.modelMapper.map(petDTO, Pet.class);
         return this.modelMapper.map(this.petService.save(pet, ownerId), PetDTO.class);
     }
