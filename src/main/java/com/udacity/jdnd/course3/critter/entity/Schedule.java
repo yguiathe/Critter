@@ -21,7 +21,7 @@ public class Schedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @ManyToMany
     private List<Employee> employees = new ArrayList<>();
